@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="pt_BR">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Roda Ágil</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="./css/bootstrap.min.css" />
+
+    <style>
+      canvas {
+        float: left;
+      }
+      .editor {
+        margin: auto;
+        font-family: Arial;
+        font-size: 1em;
+        float: left;
+      }
+      .linkbotao {
+        font-family: verdana, arial, sans-serif;
+        font-size: 10pt;
+        font-weight: bold;
+        padding: 4px;
+        background-color: #ffffcc;
+        color: #666666;
+        text-decoration: none;
+      }
+      .linkbotao:link,
+      .linkbotao:visited {
+        border-top: 1px solid #cccccc;
+        border-bottom: 2px solid #666666;
+        border-left: 1px solid #cccccc;
+        border-right: 2px solid #666666;
+      }
+      .linkbotao:hover {
+        border-bottom: 1px solid #cccccc;
+        border-top: 2px solid #666666;
+        border-right: 1px solid #cccccc;
+        border-left: 2px solid #666666;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="container-fluid">
+        <header
+          class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom"
+        >
+          <a
+            href="/"
+            class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
+          >
+            <svg class="bi me-2" width="40" height="32">
+              <use xlink:href="#bootstrap" />
+            </svg>
+            <span class="fs-4">Roda Ágil</span>
+          </a>
+
+          <ul class="nav nav-pills">
+            <li class="nav-item"><a href="#" class="nav-link" id="salvar">Gerar Imagem</a></li>
+  
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                data-bs-toggle="dropdown"
+              >
+                Sobre
+              </a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><hr class="dropdown-divider" /></li>
+                <li class="nav-item">
+                  <a
+                    href="https://www.anagsoares.com/category/roda-agil/"
+                    class="nav-link"
+                    >Blog Roda Agil</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </header>
+      </div>
+    </main>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3">
+          <!-- Menu lateral esquedo -->
+
+          <div class="accordion" id="graph-editor">
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#panelsStayOpen-collapseOne"
+                  aria-expanded="true"
+                  aria-controls="panelsStayOpen-collapseOne"
+                >
+                  Configurações
+                </button>
+              </h2>
+              <div
+                id="panelsStayOpen-collapseOne"
+                class="accordion-collapse collapse show"
+              >
+                <div class="accordion-body">
+                  Configurações e personalizações do gráfico.
+
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label"
+                      >Título/Time:</label
+                    >
+                    <input type="text" class="form-control" id="time" name="time" placeholder="Informe um título para o card, nome da time, equipe,...." />
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label"
+                      >Data:</label
+                    >
+                    <input type="date" class="form-control" id="time" name="date" placeholder="Informe um título para o card, nome da time, equipe,...." />
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="basic-url" class="form-label">Cores</label>
+                    <div class="input-group">
+                      <span class="input-group-text" id="basic-addon3">Pontuação maior</span>
+                      <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4">
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-text" id="basic-addon3">Pontuação media</span>
+                      <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4">
+                    </div>
+                    <div class="input-group">
+                      <span class="input-group-text" id="basic-addon3">Pontuação menor</span>
+                      <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4">
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+            
+            <!-- Pessoas -->
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo" >
+                  Pessoas
+                </button>
+              </h2>
+              <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" >
+                <div class="accordion-body">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text" id="basic-addon1">Colaboração e comunicação</span>
+                        <input type="number" class="form-control" name="0" min="1" max="5" value="1">
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text" id="basic-addon1">Motivação e confiança</span>
+                        <input type="number" class="form-control" name="1" min="1" max="5" value="1">
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text" id="basic-addon1">Autonomia e auto-organização</span>
+                        <input type="number" class="form-control" name="2" min="1" max="5" value="1">
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text" id="basic-addon1">Kaizen</span>
+                        <input type="number" class="form-control" name="3" min="1" max="5" value="1">
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text" id="basic-addon1">Interdisciplinaridade</span>
+                        <input type="number" class="form-control" name="4" min="1" max="5" value="1">
+                    </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Experimente -->
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo" >
+                  Experimente
+                </button>
+              </h2>
+              <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" >
+                <div class="accordion-body">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text" id="basic-addon1">Práticas Lean-Agile</span>
+                        <input type="number" class="form-control" name="5" min="1" max="5" value="1">
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text" id="basic-addon1">Métricas e ferramentas</span>
+                        <input type="number" class="form-control" name="6" min="1" max="5" value="1">
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text" id="basic-addon1">Comprometimento com o produto</span>
+                        <input type="number" class="form-control" name="7" min="1" max="5" value="1">
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text" id="basic-addon1">Compartilhamento de conhecimento</span>
+                        <input type="number" class="form-control" name="8" min="1" max="5" value="1">
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text" id="basic-addon1">Ritmo das entregas</span>
+                        <input type="number" class="form-control" name="9" min="1" max="5" value="1">
+                    </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Segurança -->
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo" >
+                  Segurança
+                </button>
+              </h2>
+              <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" >
+                <div class="accordion-body">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text" id="basic-addon1">Código sustentável</span>
+                        <input type="number" class="form-control" name="10" min="1" max="5" value="1">
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text" id="basic-addon1">Automações (Pipeline)</span>
+                        <input type="number" class="form-control" name="11" min="1" max="5" value="1">
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text" id="basic-addon1">BDD/TDD e Clean Code</span>
+                        <input type="number" class="form-control" name="12" min="1" max="5" value="1">
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text" id="basic-addon1">Qualidade E2E</span>
+                        <input type="number" class="form-control" name="13" min="1" max="5" value="1">
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text" id="basic-addon1">DevOps</span>
+                        <input type="number" class="form-control" name="14" min="1" max="5" value="1">
+                    </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Valor -->
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo" >
+                  Valor
+                </button>
+              </h2>
+              <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" >
+                <div class="accordion-body">
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text" id="basic-addon1">Quebra de Stories, Features e Epics</span>
+                        <input type="number" class="form-control" name="15" min="1" max="5" value="1">
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text" id="basic-addon1">UX</span>
+                        <input type="number" class="form-control" name="16" min="1" max="5" value="1">
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text" id="basic-addon1">Entrega de valor</span>
+                        <input type="number" class="form-control" name="17" min="1" max="5" value="1">
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text" id="basic-addon1">Relacionamento com negócio</span>
+                        <input type="number" class="form-control" name="18" min="1" max="5" value="1">
+                    </div>
+                    <div class="input-group input-group-sm">
+                        <span class="input-group-text" id="basic-addon1">Satisfação do cliente</span>
+                        <input type="number" class="form-control" name="19" min="1" max="5" value="1">
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="row justify-content-center">
+            <div class="col-8">
+                
+                <!-- Canvas com a roda ágil -->
+                <canvas id="canvas-show" width="800"></canvas>
+                <canvas id="canvas-out" width="1400" hidden="true"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Javascripts -->
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/rodaagilchart.js"></script>
+  </body>
+</html>
