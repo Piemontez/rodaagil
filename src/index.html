@@ -7,37 +7,7 @@
     <link rel="stylesheet" href="./css/bootstrap.min.css" />
 
     <style>
-      canvas {
-        float: left;
-      }
-      .editor {
-        margin: auto;
-        font-family: Arial;
-        font-size: 1em;
-        float: left;
-      }
-      .linkbotao {
-        font-family: verdana, arial, sans-serif;
-        font-size: 10pt;
-        font-weight: bold;
-        padding: 4px;
-        background-color: #ffffcc;
-        color: #666666;
-        text-decoration: none;
-      }
-      .linkbotao:link,
-      .linkbotao:visited {
-        border-top: 1px solid #cccccc;
-        border-bottom: 2px solid #666666;
-        border-left: 1px solid #cccccc;
-        border-right: 2px solid #666666;
-      }
-      .linkbotao:hover {
-        border-bottom: 1px solid #cccccc;
-        border-top: 2px solid #666666;
-        border-right: 1px solid #cccccc;
-        border-left: 2px solid #666666;
-      }
+      
     </style>
   </head>
   <body>
@@ -68,9 +38,6 @@
                 Sobre
               </a>
               <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><hr class="dropdown-divider" /></li>
                 <li class="nav-item">
                   <a
                     href="https://www.anagsoares.com/category/roda-agil/"
@@ -127,17 +94,17 @@
 
                   <div class="mb-3">
                     <label for="basic-url" class="form-label">Cores</label>
-                    <div class="input-group">
+                    <div class="input-group input-group-sm"">
                       <span class="input-group-text" id="basic-addon3">Pontuação maior</span>
-                      <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4">
+                      <input type="text" class="form-control" id="cor_maior" value="#00b7ad">
                     </div>
-                    <div class="input-group">
+                    <div class="input-group input-group-sm"">
                       <span class="input-group-text" id="basic-addon3">Pontuação media</span>
-                      <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4">
+                      <input type="text" class="form-control" id="cor_media" value="#ffd63f">
                     </div>
-                    <div class="input-group">
+                    <div class="input-group input-group-sm"">
                       <span class="input-group-text" id="basic-addon3">Pontuação menor</span>
-                      <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4">
+                      <input type="text" class="form-control" id="cor_menor" value="#ff7474">
                     </div>
                   </div>
 
@@ -160,19 +127,19 @@
                     </div>
                     <div class="input-group input-group-sm">
                         <span class="input-group-text" id="basic-addon1">Motivação e confiança</span>
-                        <input type="number" class="form-control" name="1" min="1" max="5" value="1">
+                        <input type="number" class="form-control" name="1" min="1" max="5" value="2">
                     </div>
                     <div class="input-group input-group-sm">
                         <span class="input-group-text" id="basic-addon1">Autonomia e auto-organização</span>
-                        <input type="number" class="form-control" name="2" min="1" max="5" value="1">
+                        <input type="number" class="form-control" name="2" min="1" max="5" value="3">
                     </div>
                     <div class="input-group input-group-sm">
                         <span class="input-group-text" id="basic-addon1">Kaizen</span>
-                        <input type="number" class="form-control" name="3" min="1" max="5" value="1">
+                        <input type="number" class="form-control" name="3" min="1" max="5" value="4">
                     </div>
                     <div class="input-group input-group-sm">
                         <span class="input-group-text" id="basic-addon1">Interdisciplinaridade</span>
-                        <input type="number" class="form-control" name="4" min="1" max="5" value="1">
+                        <input type="number" class="form-control" name="4" min="1" max="5" value="5">
                     </div>
                 </div>
               </div>
@@ -278,15 +245,10 @@
             </div>
           </div>
         </div>
-        <div class="col">
-          <div class="row justify-content-center">
-            <div class="col-8">
-                
-                <!-- Canvas com a roda ágil -->
-                <canvas id="canvas-show" width="800"></canvas>
-                <canvas id="canvas-out" width="1400" hidden="true"></canvas>
-            </div>
-          </div>
+        <div class="col text-center">    
+            <!-- Canvas com a roda ágil -->
+            <canvas id="canvas-show" width="800"></canvas>
+            <canvas id="canvas-out" width="1400" hidden="true"></canvas>
         </div>
       </div>
     </div>
@@ -294,5 +256,60 @@
     <!-- Javascripts -->
     <script src="./js/bootstrap.min.js"></script>
     <script src="./js/rodaagilchart.js"></script>
+    <script>
+      var formEditor = document.querySelector("#graph-editor");
+      var chartProps = {
+        time: '',
+        date: '',
+        colors: {
+          min: "#ff7474", 
+          med: "#ffd63f", 
+          max: "#00b7ad",
+        },
+        itens: [
+        { title: 'Colaboração e comunicação', value: 1 },
+        { title: 'Motivação e confiança', value: 1 },
+        { title: 'Autonomia e auto-organização', value: 1 },
+        { title: 'Kaizen', value: 1 },
+        { title: 'Interdisciplinaridade', value: 1 }]
+      };
+
+      // Ajusta tamanho do canvas
+      document.getElementById('canvas-show').width = window.innerHeight - 20
+
+      function loadFormValues() {
+        chartProps.time = formEditor.querySelector("input[name=time]")?.value || '';
+        chartProps.date = formEditor.querySelector("input[name=date]")?.value || '';
+        chartProps.colors.min = formEditor.querySelector("input[id=cor_menor]")?.value || '';
+        chartProps.colors.med = formEditor.querySelector("input[id=cor_media]")?.value || '';
+        chartProps.colors.max = formEditor.querySelector("input[id=cor_maior]")?.value || '';
+        
+        for (var i = 0; i < 20; i++) {
+          var input = formEditor.querySelector('input[name="' + i + '"]');
+          
+          if (!chartProps.itens[i]) {
+            chartProps.itens[i] = {};
+          }
+          chartProps.itens[i].value = input ? input.value : "";
+        }
+      }
+
+      // Botão salvar imagem
+      document.getElementById("salvar").addEventListener("click", function (e) {
+        loadFormValues();
+        draw(canvasOut, chartProps);
+        this.href = imgData; // source
+        this.download = "Roda-Agil.png"; // nome da imagem
+        return false;
+      });
+
+      formEditor.addEventListener("change", function () {
+        loadFormValues();
+        draw(canvasShow, chartProps);
+      });
+
+      loadFormValues();
+      draw(canvasShow, chartProps);
+    </script>
   </body>
 </html>

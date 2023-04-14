@@ -2,44 +2,28 @@ var results = [];
 var canvasShow = document.querySelector("#canvas-show");
 var canvasOut = document.querySelector("#canvas-out");
 
-var formEditor = document.querySelector("#graph-editor");
-// obtém o source da imagem
+var textColor = "#002c5b";
+
 var imgData = canvasOut.toDataURL(); // por padrão, a imagem é PNG
 
-var results = [];
-function changeResults() {
-  for (var i = 0; i < 20; i++) {
-    var input = formEditor.querySelector('input[name="' + i + '"]');
-    results[i] = {
-      value: input ? input.value : '',
-    };
-  }
-}
+var currentAngle = -0.5 * Math.PI;
+var sliceAngle = (1 / 20) * 2 * Math.PI;
 
-function draw(canvas) {
-  var cx = canvas.getContext("2d");
-
-  var centerX = canvas.width / 2;
-  canvas.height = 0.8125 * canvas.width;
-  var centerY = canvas.height / 2;
-  var sizeControl = 0.065 * canvas.width;
-
-  cx.save();
-
-  cx.fillStyle = "white";
-  cx.fillRect(0, 0, canvas.width, canvas.height);
-  cx.rect(0, 0, canvas.width, canvas.height);
-  cx.stroke();
-  changeResults();
-
-  colors = ["#ff7474", "#ff7474", "#ffd63f", "#00b7ad", "#00b7ad"];
-  var currentAngle = -0.5 * Math.PI;
-  var sliceAngle = (1 / 20) * 2 * Math.PI;
+function drawScore(cx, chartProps, centerX, centerY, sizeControl) {
+  var colors = [
+    chartProps.colors.min,
+    chartProps.colors.min,
+    chartProps.colors.med,
+    chartProps.colors.max,
+    chartProps.colors.max,
+  ];
 
   for (var i = 5; i > 0; i--) {
-    results.forEach(function (result) {
-      color = result.value >= i ? colors[i - 1] : "white";
+    chartProps.itens.forEach(function (result) {
+      color = result.value >= i ? colors[result.value] : "white";
       cx.beginPath();
+      cx.fillStyle = color;
+      cx.strokeStyle = textColor;
 
       cx.arc(
         centerX,
@@ -48,22 +32,30 @@ function draw(canvas) {
         currentAngle,
         currentAngle + sliceAngle
       );
-      currentAngle += sliceAngle;
       cx.lineTo(centerX, centerY);
-      cx.fillStyle = color;
       cx.fill();
+
+      cx.lineWidth = 0.2;
       cx.stroke();
+      cx.closePath();
+
+      currentAngle += sliceAngle;
     });
   }
-  count = 0;
-  results.forEach(function (result) {
+}
+
+function drawLines(cx, chartProps, centerX, centerY, sizeControl) {
+  var count = 0;
+  chartProps.itens.forEach(function (result) {
     if (count == 4 || count == 9 || count == 14 || count == 19) {
-      var lineWidth = 6;
+      var lineWidth = 4;
     } else {
       var lineWidth = 1;
     }
     count++;
     cx.beginPath();
+    cx.strokeStyle = textColor;
+
     cx.arc(
       centerX,
       centerY,
@@ -78,8 +70,9 @@ function draw(canvas) {
     cx.stroke();
   });
 
-  results.forEach(function (result) {
+  chartProps.itens.forEach(function (result) {
     cx.beginPath();
+    cx.strokeStyle = "white";
 
     cx.arc(
       centerX,
@@ -91,13 +84,32 @@ function draw(canvas) {
     );
     currentAngle += sliceAngle;
     cx.lineWidth = 10;
-    cx.strokeStyle = "white";
     cx.stroke();
+    cx.closePath();
   });
+}
+
+function draw(canvas, chartProps) {
+  var cx = canvas.getContext("2d");
+
+  var centerX = canvas.width / 2;
+  canvas.height = 0.8125 * canvas.width;
+  var centerY = canvas.height / 2;
+  var sizeControl = 0.065 * canvas.width;
+
+  cx.save();
+
+  cx.fillStyle = "white";
+  cx.fillRect(0, 0, canvas.width, canvas.height);
+  cx.rect(0, 0, canvas.width, canvas.height);
+  cx.stroke();
+
+  drawScore(cx, chartProps, centerX, centerY, sizeControl);
+  drawLines(cx, chartProps, centerX, centerY, sizeControl);
 
   // Textos do gráfico
   cx.font = 0.03125 * canvas.width + "px  Arial";
-  cx.fillStyle = "#000";
+  cx.fillStyle = textColor;
   cx.fillText(
     "Valor",
     canvas.width * 0.00625,
@@ -139,22 +151,14 @@ function draw(canvas) {
 
   // Cultura
   cx.font = 0.01625 * canvas.width + "px Arial";
-  cx.fillText(
-    "Colaboração e",
-    canvas.width * 0.51,
-    canvas.height * 0.0269
-  );
+  cx.fillText("Colaboração e", canvas.width * 0.51, canvas.height * 0.0269);
   cx.fillText(" comunicação", canvas.width * 0.51, canvas.height * 0.05);
 
   cx.fillText("Motivação e", canvas.width * 0.64, canvas.height * 0.0607);
   cx.fillText(" confiança", canvas.width * 0.64, canvas.height * 0.0847);
 
   cx.fillText("Autonomia e", canvas.width * 0.75, canvas.height * 0.15);
-  cx.fillText(
-    "auto-organização",
-    canvas.width * 0.73,
-    canvas.height * 0.17
-  );
+  cx.fillText("auto-organização", canvas.width * 0.73, canvas.height * 0.17);
 
   cx.fillText("Kaizen", canvas.width * 0.82, canvas.height * 0.284);
 
@@ -218,11 +222,7 @@ function draw(canvas) {
     canvas.width * 0.399375,
     canvas.height * 0.926923076923077
   );
-  cx.fillText(
-    "Sutentável",
-    canvas.width * 0.394375,
-    canvas.height * 0.95
-  );
+  cx.fillText("Sutentável", canvas.width * 0.394375, canvas.height * 0.95);
   cx.fillText(
     "(Refactoring)",
     canvas.width * 0.388125,
@@ -285,11 +285,7 @@ function draw(canvas) {
     canvas.height * 0.46153846153846156
   );
 
-  cx.fillText(
-    "User",
-    canvas.width * 0.1,
-    canvas.height * 0.2846153846153846
-  );
+  cx.fillText("User", canvas.width * 0.1, canvas.height * 0.2846153846153846);
   cx.fillText(
     "Experience",
     canvas.width * 0.08125,
@@ -327,24 +323,19 @@ function draw(canvas) {
     canvas.width * 0.39125,
     canvas.height * 0.026923076923076925
   );
-  cx.fillText(
-    "do cliente",
-    canvas.width * 0.394375,
-    canvas.height * 0.05
-  );
+  cx.fillText("do cliente", canvas.width * 0.394375, canvas.height * 0.05);
 
   // Informações do time e data
   cx.font = 0.0125 * canvas.width + "px Arial";
 
-  var inputTime = formEditor.querySelector("input[name=time]")
   cx.fillText(
-    "Time: " + (inputTime ? inputTime.value : ''),
+    "Time: " + chartProps.time,
     canvas.width * 0.0125,
     canvas.height * 0.09230769230769231
   );
-  var inputDate = formEditor.querySelector("input[name=date]")
+
   cx.fillText(
-    "Data: " + (inputDate ? inputDate.value : ''),
+    "Data: " + chartProps.date,
     canvas.width * 0.0125,
     canvas.height * 0.11538461538461539
   );
@@ -352,17 +343,3 @@ function draw(canvas) {
   imgData = canvas.toDataURL();
   cx.restore();
 }
-
-formEditor.addEventListener("change", function () {
-  console.log(1);
-  draw(canvasShow);
-});
-// salva imagem
-document.getElementById("salvar").addEventListener("click", function (e) {
-  draw(canvasOut);
-  this.href = imgData; // source
-  this.download = "Roda-Agil.png"; // nome da imagem
-  return false;
-});
-
-draw(canvasShow);
