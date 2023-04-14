@@ -1,15 +1,48 @@
 var results = [];
 var canvasShow = document.querySelector("#canvas-show");
 var canvasOut = document.querySelector("#canvas-out");
-
-var textColor = "#002c5b";
-
 var imgData = canvasOut.toDataURL(); // por padrão, a imagem é PNG
 
-var currentAngle = -0.5 * Math.PI;
-var sliceAngle = (1 / 20) * 2 * Math.PI;
+var chartValues = {
+  startAngle: -0.5 * Math.PI,
+  currentAngle: -0.5 * Math.PI,
+  sliceAngle: (1 / 20) * 2 * Math.PI,
+  centerX: 0,
+  centerY: 0,
+  sizeControl: 0,
+  height: 0,
+  width: 0,
+};
 
-function drawScore(cx, chartProps, centerX, centerY, sizeControl) {
+function configureChart(canvas, chartProps) {
+  chartValues.sliceAngle = (1 / chartProps.itens.length) * 2 * Math.PI;
+
+  chartValues.centerX = canvas.width / 2;
+  canvas.height = 0.8125 * canvas.width;
+  chartValues.centerY = canvas.height / 2;
+  chartValues.sizeControl = 0.065 * canvas.width;
+
+  chartValues.width = canvas.width;
+  chartValues.height = canvas.height;
+}
+
+function makeScorePath(centerX, centerY, radius, startAngle, endAngle) {
+  var path = new Path2D();
+  path.arc(centerX, centerY, radius, startAngle, endAngle);
+  path.lineTo(centerX, centerY);
+
+  return path;
+}
+
+function drawBorder(cx, width, height) {
+  cx.fillStyle = "white";
+  cx.fillRect(0, 0, width, height);
+  cx.rect(0, 0, width, height);
+  cx.stroke();
+}
+
+function drawScore(cx, chartProps) {
+  var path;
   var colors = [
     chartProps.colors.min,
     chartProps.colors.min,
@@ -20,31 +53,62 @@ function drawScore(cx, chartProps, centerX, centerY, sizeControl) {
 
   for (var i = 5; i > 0; i--) {
     chartProps.itens.forEach(function (result) {
-      color = result.value >= i ? colors[result.value] : "white";
-      cx.beginPath();
+      color = result.value >= i ? colors[result.value - 1] : "white";
+
       cx.fillStyle = color;
-      cx.strokeStyle = textColor;
-
-      cx.arc(
-        centerX,
-        centerY,
-        sizeControl * i,
-        currentAngle,
-        currentAngle + sliceAngle
-      );
-      cx.lineTo(centerX, centerY);
-      cx.fill();
-
+      cx.strokeStyle = chartProps.colors.text;
       cx.lineWidth = 0.2;
-      cx.stroke();
-      cx.closePath();
 
-      currentAngle += sliceAngle;
+      path = makeScorePath(
+        chartValues.centerX,
+        chartValues.centerY,
+        chartValues.sizeControl * i,
+        chartValues.currentAngle,
+        chartValues.currentAngle + chartValues.sliceAngle
+      );
+      //cx.isPointInPath(circle, event.offsetX, event.offsetY);
+
+      cx.fill(path);
+      cx.stroke(path);
+
+      chartValues.currentAngle += chartValues.sliceAngle;
     });
   }
 }
 
-function drawLines(cx, chartProps, centerX, centerY, sizeControl) {
+function drawTitles(cx, chartProps) {
+  // Cultura
+  cx.font = 0.01 * chartValues.width + "px Arial";
+  cx.fillStyle = chartProps.colors.text;
+
+  for (var key in chartProps.itens) {
+    var item = chartProps.itens[key];
+
+    var x = chartValues.height * 0.45 * Math.cos(key);
+    var y = chartValues.height * 0.45 * Math.sin(key);
+
+    cx.fillText(item.title, x + chartValues.centerX, y + chartValues.centerY);
+  }
+  /*
+  cx.fillText("Colaboração e", chartValues.width * 0.51, chartValues.height * 0.0269);
+  cx.fillText(" comunicação", chartValues.width * 0.51, chartValues.height * 0.05);
+
+  cx.fillText("Motivação e", chartValues.width * 0.64, chartValues.height * 0.0607);
+  cx.fillText(" confiança", chartValues.width * 0.64, chartValues.height * 0.0847);
+
+  cx.fillText("Autonomia e", chartValues.width * 0.75, chartValues.height * 0.15);
+  cx.fillText("auto-organização", chartValues.width * 0.73, chartValues.height * 0.17);
+
+  cx.fillText("Kaizen", chartValues.width * 0.82, chartValues.height * 0.284);
+
+  cx.fillText(
+    "Interdisciplinaridade",
+    chartValues.width * 0.83,
+    chartValues.height * 0.434
+  );*/
+}
+
+function drawLines(cx, chartProps) {
   var count = 0;
   chartProps.itens.forEach(function (result) {
     if (count == 4 || count == 9 || count == 14 || count == 19) {
@@ -54,18 +118,18 @@ function drawLines(cx, chartProps, centerX, centerY, sizeControl) {
     }
     count++;
     cx.beginPath();
-    cx.strokeStyle = textColor;
+    cx.strokeStyle = chartProps.colors.text;
 
     cx.arc(
-      centerX,
-      centerY,
-      sizeControl * 6,
-      currentAngle,
-      currentAngle + sliceAngle,
+      chartValues.centerX,
+      chartValues.centerY,
+      chartValues.sizeControl * 6,
+      chartValues.currentAngle,
+      chartValues.currentAngle + chartValues.sliceAngle,
       true
     );
-    currentAngle += sliceAngle;
-    cx.lineTo(centerX, centerY);
+    chartValues.currentAngle += chartValues.sliceAngle;
+    cx.lineTo(chartValues.centerX, chartValues.centerY);
     cx.lineWidth = lineWidth;
     cx.stroke();
   });
@@ -75,14 +139,14 @@ function drawLines(cx, chartProps, centerX, centerY, sizeControl) {
     cx.strokeStyle = "white";
 
     cx.arc(
-      centerX,
-      centerY,
-      sizeControl * 6,
-      currentAngle,
-      currentAngle + sliceAngle,
+      chartValues.centerX,
+      chartValues.centerY,
+      chartValues.sizeControl * 6,
+      chartValues.currentAngle,
+      chartValues.currentAngle + chartValues.sliceAngle,
       true
     );
-    currentAngle += sliceAngle;
+    chartValues.currentAngle += chartValues.sliceAngle;
     cx.lineWidth = 10;
     cx.stroke();
     cx.closePath();
@@ -92,24 +156,14 @@ function drawLines(cx, chartProps, centerX, centerY, sizeControl) {
 function draw(canvas, chartProps) {
   var cx = canvas.getContext("2d");
 
-  var centerX = canvas.width / 2;
-  canvas.height = 0.8125 * canvas.width;
-  var centerY = canvas.height / 2;
-  var sizeControl = 0.065 * canvas.width;
-
-  cx.save();
-
-  cx.fillStyle = "white";
-  cx.fillRect(0, 0, canvas.width, canvas.height);
-  cx.rect(0, 0, canvas.width, canvas.height);
-  cx.stroke();
-
-  drawScore(cx, chartProps, centerX, centerY, sizeControl);
-  drawLines(cx, chartProps, centerX, centerY, sizeControl);
+  configureChart(canvas, chartProps);
+  drawBorder(cx, canvas.width, canvas.height);
+  drawScore(cx, chartProps);
+  drawLines(cx, chartProps);
 
   // Textos do gráfico
   cx.font = 0.03125 * canvas.width + "px  Arial";
-  cx.fillStyle = textColor;
+  cx.fillStyle = chartProps.colors.text;
   cx.fillText(
     "Valor",
     canvas.width * 0.00625,
@@ -149,25 +203,8 @@ function draw(canvas, chartProps) {
   cx.font = 0.015 * canvas.width + "px  Arial";
   cx.fillText("um pré requisito", canvas.width * 0.00625, heightSubTitle);
 
-  // Cultura
-  cx.font = 0.01625 * canvas.width + "px Arial";
-  cx.fillText("Colaboração e", canvas.width * 0.51, canvas.height * 0.0269);
-  cx.fillText(" comunicação", canvas.width * 0.51, canvas.height * 0.05);
-
-  cx.fillText("Motivação e", canvas.width * 0.64, canvas.height * 0.0607);
-  cx.fillText(" confiança", canvas.width * 0.64, canvas.height * 0.0847);
-
-  cx.fillText("Autonomia e", canvas.width * 0.75, canvas.height * 0.15);
-  cx.fillText("auto-organização", canvas.width * 0.73, canvas.height * 0.17);
-
-  cx.fillText("Kaizen", canvas.width * 0.82, canvas.height * 0.284);
-
-  cx.fillText(
-    "Interdisciplinaridade",
-    canvas.width * 0.83,
-    canvas.height * 0.434
-  );
-
+  drawTitles(cx, chartProps);
+  /*
   // Organização
   cx.fillText("Práticas", canvas.width * 0.87, canvas.height * 0.561);
   cx.fillText("Lean-Agile", canvas.width * 0.858, canvas.height * 0.584);
@@ -324,7 +361,7 @@ function draw(canvas, chartProps) {
     canvas.height * 0.026923076923076925
   );
   cx.fillText("do cliente", canvas.width * 0.394375, canvas.height * 0.05);
-
+*/
   // Informações do time e data
   cx.font = 0.0125 * canvas.width + "px Arial";
 
