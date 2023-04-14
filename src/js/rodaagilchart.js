@@ -18,9 +18,9 @@ function configureChart(canvas, chartProps) {
   chartValues.sliceAngle = (1 / chartProps.itens.length) * 2 * Math.PI;
 
   chartValues.centerX = canvas.width / 2;
-  canvas.height = 0.8125 * canvas.width;
+  canvas.height = canvas.width;
   chartValues.centerY = canvas.height / 2;
-  chartValues.sizeControl = 0.065 * canvas.width;
+  chartValues.sizeControl = 0.075 * canvas.width;
 
   chartValues.width = canvas.width;
   chartValues.height = canvas.height;
@@ -84,28 +84,18 @@ function drawTitles(cx, chartProps) {
   for (var key in chartProps.itens) {
     var item = chartProps.itens[key];
 
-    var x = chartValues.height * 0.45 * Math.cos(key);
-    var y = chartValues.height * 0.45 * Math.sin(key);
+    var x =
+      chartValues.height *
+      0.43 *
+      Math.cos(key * chartValues.sliceAngle + chartValues.sliceAngle / 5);
+
+    var y =
+      chartValues.height *
+      0.43 *
+      Math.sin(key * chartValues.sliceAngle + chartValues.sliceAngle / 5);
 
     cx.fillText(item.title, x + chartValues.centerX, y + chartValues.centerY);
   }
-  /*
-  cx.fillText("Colaboração e", chartValues.width * 0.51, chartValues.height * 0.0269);
-  cx.fillText(" comunicação", chartValues.width * 0.51, chartValues.height * 0.05);
-
-  cx.fillText("Motivação e", chartValues.width * 0.64, chartValues.height * 0.0607);
-  cx.fillText(" confiança", chartValues.width * 0.64, chartValues.height * 0.0847);
-
-  cx.fillText("Autonomia e", chartValues.width * 0.75, chartValues.height * 0.15);
-  cx.fillText("auto-organização", chartValues.width * 0.73, chartValues.height * 0.17);
-
-  cx.fillText("Kaizen", chartValues.width * 0.82, chartValues.height * 0.284);
-
-  cx.fillText(
-    "Interdisciplinaridade",
-    chartValues.width * 0.83,
-    chartValues.height * 0.434
-  );*/
 }
 
 function drawLines(cx, chartProps) {
