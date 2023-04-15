@@ -14,7 +14,7 @@
     <main>
       <div class="container-fluid">
         <header
-          class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom"
+          class="d-flex flex-wrap justify-content-center py-1 mb-3 border-bottom"
         >
           <a
             href="/"
@@ -258,6 +258,7 @@
     <script src="./js/rodaagilchart.js"></script>
     <script>
       var formEditor = document.querySelector("#graph-editor");
+      var currentDate = new Date();
       var chartProps = {
         time: '',
         date: '',
@@ -267,35 +268,56 @@
           med: "#ffd63f", 
           max: "#00b7ad",
         },
-        itens: [
-        //
-        { title: 'Colaboração e comunicação', value: 1 },
-        { title: 'Motivação e confiança', value: 1 },
-        { title: 'Autonomia e auto-organização', value: 1 },
-        { title: 'Kaizen', value: 1 },
-        { title: 'Interdisciplinaridade', value: 1 },
-        //
-        { title: 'Práticas Lean-Agile', value: 1},
-        { title: 'Métricas e ferramentas', value: 1},
-        { title: 'Comprometimento com o produto', value: 1},
-        { title: 'Compartilhamento de conhecimento', value: 1},
-        { title: 'Ritmo das entregas', value: 1},
-        //
-        { title: 'Código sustentável', value: 1},
-        { title: 'Automações (Pipeline)', value: 1},
-        { title: 'BDD/TDD e Clean Code', value: 1},
-        { title: 'Qualidade E2E', value: 1},
-        { title: 'DevOps', value: 1},
-        //
-        { title: 'Quebra de Stories, Features e Epics', value: 1},
-        { title: 'UX', value: 1},
-        { title: 'Entrega de valor', value: 1},
-        { title: 'Relacionamento com negócio', value: 1},
-        { title: 'Satisfação do cliente', value: 1},
-      ]};
+        groups: [
+          { 
+            title: 'Valor',
+            subtitle: 'a Todo instante',
+            itens: [
+            { title: 'Colaboração e comunicação', value: 2 },
+            { title: 'Motivação e confiança', value: 3 },
+            { title: 'Autonomia e auto-organização', value: 3 },
+            { title: 'Kaizen', value: 4 },
+            { title: 'Interdisciplinaridade', value: 4 },
+          ]},
+          { 
+            title: 'Pessoas',
+            subtitle: 'sensacionais',
+            itens: [
+            { title: 'Práticas Lean-Agile', value: 1},
+            { title: 'Métricas e ferramentas', value: 2},
+            { title: 'Comprometimento com o produto', value: 5},
+            { title: 'Compartilhamento de conhecimento', value: 3},
+            { title: 'Ritmo das entregas', value: 1},
+          ]},
+          { 
+            title: 'Experimente',
+            subtitle: 'e aprenda rápido',
+            itens: [
+            { title: 'Código sustentável', value: 3},
+            { title: 'Automações (Pipeline)', value: 1},
+            { title: 'BDD/TDD e Clean Code', value: 4},
+            { title: 'Qualidade E2E', value: 1},
+            { title: 'DevOps', value: 5}
+          ]},
+          { 
+            title: "Segurança",
+            subtitle: 'um pré requisito',
+            itens: [
+            { title: 'Quebra de Stories, Features e Epics', value: 2},
+            { title: 'UX', value: 1},
+            { title: 'Entrega de valor', value: 4},
+            { title: 'Relacionamento com negócio', value: 2},
+            { title: 'Satisfação do cliente', value: 3},
+          ]}
+        ],
+        itens: []
+      };
 
       // Ajusta tamanho do canvas
-      document.getElementById('canvas-show').width = window.innerHeight - 120
+      document.getElementById('canvas-show').width = window.innerHeight - 130;
+      formEditor.querySelector("input[name=date]").value = currentDate.getFullYear() + '-' + 
+        (currentDate.getMonth() < 9 ? '0' + (currentDate.getMonth() + 1) : currentDate.getMonth()) + '-' +
+        (currentDate.getDate() < 10 ? '0' + currentDate.getDate() : currentDate.getDate());
 
       function loadFormValues() {
         chartProps.time = formEditor.querySelector("input[name=time]")?.value || '';

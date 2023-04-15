@@ -4,6 +4,7 @@ var canvasOut = document.querySelector("#canvas-out");
 var imgData = canvasOut.toDataURL(); // por padrão, a imagem é PNG
 
 var chartValues = {
+  fontTitle: "0px  Arial",
   startAngle: -0.5 * Math.PI,
   currentAngle: -0.5 * Math.PI,
   sliceAngle: (1 / 20) * 2 * Math.PI,
@@ -14,16 +15,24 @@ var chartValues = {
   width: 0,
 };
 
+//
+function loadProps(chartProps) {
+  chartProps.itens = chartProps.groups.map((curr) => curr.itens).flat();
+}
+
 function configureChart(canvas, chartProps) {
   chartValues.sliceAngle = (1 / chartProps.itens.length) * 2 * Math.PI;
 
   chartValues.centerX = canvas.width / 2;
-  canvas.height = canvas.width;
-  chartValues.centerY = canvas.height / 2;
-  chartValues.sizeControl = 0.075 * canvas.width;
+  canvas.height = canvas.width * 1.05;
+  chartValues.centerY = canvas.height / 1.92;
+  chartValues.sizeControl = 0.082 * canvas.width;
 
   chartValues.width = canvas.width;
   chartValues.height = canvas.height;
+
+  chartValues.fontTitle = 0.03125 * chartValues.width + "px  Arial";
+  chartValues.fontSubtitle = 0.015 * chartValues.width + "px  Arial";
 }
 
 function makeScorePath(centerX, centerY, radius, startAngle, endAngle) {
@@ -122,70 +131,52 @@ function drawLines(cx, chartProps) {
 }
 
 function drawHeaders(cx, chartProps) {
+  const { width, height } = chartValues;
+  chartValues;
+
   // Textos do gráfico
-  cx.font = 0.03125 * chartValues.width + "px  Arial";
+  cx.font = chartValues.fontTitle;
   cx.fillStyle = chartProps.colors.text;
 
   cx.fillText(
-    "Valor",
-    chartValues.width * 0.00625,
-    chartValues.height * 0.038461538461538464
+    chartProps.time || "Informe um título",
+    width * 0.0125,
+    height * 0.038461538461538464
   );
+  cx.fillText(chartProps.date, width * 0.821, height * 0.038461538461538464);
 
-  cx.font = 0.015 * chartValues.width + "px  Arial";
-  cx.fillText(
-    "a Todo instante",
-    chartValues.width * 0.00825,
-    chartValues.height * 0.059661538461538464
-  );
+  heightTitle = height * 0.10230769230769231;
+  heightSubTitle = height * 0.12330769230769231;
 
-  cx.font = 0.03125 * chartValues.width + "px  Arial";
-  cx.fillText(
-    "Pessoas",
-    chartValues.width * 0.875,
-    chartValues.height * 0.038461538461538464
-  );
-  cx.font = 0.015 * chartValues.width + "px  Arial";
-  cx.fillText(
-    "sensacionais",
-    chartValues.width * 0.905,
-    chartValues.height * 0.059461538461538464
-  );
+  cx.font = chartValues.fontTitle;
+  cx.fillText(chartProps.groups[0].title, width * 0.0125, heightTitle);
+  cx.font = chartValues.fontSubtitle;
+  cx.fillText(chartProps.groups[0].subtitle, width * 0.0125, heightSubTitle);
 
-  heightTitle = chartValues.height * 0.9469230769230769;
-  heightSubTitle = chartValues.height * 0.9769230769230769;
+  cx.font = chartValues.fontTitle;
+  cx.fillText(chartProps.groups[1].title, width * 0.865, heightTitle);
+  cx.font = chartValues.fontSubtitle;
+  cx.fillText(chartProps.groups[1].subtitle, width * 0.895, heightSubTitle);
 
-  cx.font = 0.03125 * chartValues.width + "px  Arial";
-  cx.fillText("Experimente", chartValues.width * 0.82, heightTitle);
-  cx.font = 0.015 * chartValues.width + "px  Arial";
-  cx.fillText("e aprenda rápido", chartValues.width * 0.88125, heightSubTitle);
+  heightTitle = height * 0.9569230769230769;
+  heightSubTitle = height * 0.9769230769230769;
 
-  cx.font = 0.03125 * chartValues.width + "px  Arial";
-  cx.fillText("Segurança", chartValues.width * 0.00625, heightTitle);
-  cx.font = 0.015 * chartValues.width + "px  Arial";
-  cx.fillText("um pré requisito", chartValues.width * 0.00625, heightSubTitle);
+  cx.font = chartValues.fontTitle;
+  cx.fillText(chartProps.groups[2].title, width * 0.81, heightTitle);
+  cx.font = chartValues.fontSubtitle;
+  cx.fillText(chartProps.groups[2].subtitle, width * 0.87125, heightSubTitle);
 
-  // Informações do time e data
-  cx.font = 0.0125 * chartValues.width + "px Arial";
-
-  cx.fillText(
-    "Time: " + chartProps.time,
-    chartValues.width * 0.0125,
-    chartValues.height * 0.09230769230769231
-  );
-
-  cx.fillText(
-    "Data: " + chartProps.date,
-    chartValues.width * 0.0125,
-    chartValues.height * 0.11538461538461539
-  );
+  cx.font = chartValues.fontTitle;
+  cx.fillText(chartProps.groups[3].title, width * 0.0125, heightTitle);
+  cx.font = chartValues.fontSubtitle;
+  cx.fillText(chartProps.groups[3].subtitle, width * 0.0125, heightSubTitle);
 }
 
 function splitText(txt) {
   return txt.split(" ").reduce(
-    (last, curr) => {
+    (last, curr, idx) => {
       const size = last[last.length - 1].length + curr.length;
-      if (size < 17) {
+      if (!idx || size < 17) {
         last[last.length - 1] += " " + curr;
       } else {
         last.push(curr);
@@ -209,13 +200,17 @@ function drawTitles(cx, chartProps) {
       const title = titles[keyTxt];
       cx.save();
 
-      var angle = key * chartValues.sliceAngle + chartValues.sliceAngle * 0.05 + (keyTxt * 0.006);
-      var distance = chartValues.height * 0.48 - (chartValues.height * keyTxt * 0.02);
+      var angle =
+        key * chartValues.sliceAngle +
+        chartValues.sliceAngle * 0.02 +
+        keyTxt * 0.005;
+      var distance =
+        chartValues.width * 0.47 - chartValues.width * keyTxt * 0.02;
       var x = distance * Math.cos(angle);
       var y = distance * Math.sin(angle);
 
       cx.translate(x + chartValues.centerX, y + chartValues.centerY);
-      cx.rotate(angle + Math.PI / 1.9);
+      cx.rotate(angle + Math.PI / 1.85);
 
       cx.fillText(title, 0, 0);
 
@@ -228,6 +223,7 @@ function draw(canvas, chartProps) {
   var cx = canvas.getContext("2d");
   cx.save();
 
+  loadProps(chartProps);
   configureChart(canvas, chartProps);
   drawBorder(cx, canvas.width, canvas.height);
   drawScore(cx, chartProps);
