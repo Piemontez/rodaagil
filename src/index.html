@@ -6,9 +6,7 @@
     <!-- CSS -->
     <link rel="stylesheet" href="./css/bootstrap.min.css" />
 
-    <style>
-      
-    </style>
+    <style></style>
   </head>
   <body>
     <main>
@@ -26,9 +24,17 @@
             <span class="fs-4">Roda Ágil</span>
           </a>
 
-          <ul class="nav nav-pills">
-            <li class="nav-item"><a href="#" class="nav-link" id="salvar">Gerar Imagem</a></li>
-  
+          <ul class="nav">
+            <li class="nav-item">
+              <a href="#" class="nav-link" id="importar">Importar</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link" id="exportar">Exportar</a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link" id="salvar">Gerar Imagem</a>
+            </li>
+
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -56,7 +62,6 @@
       <div class="row">
         <div class="col-sm-3">
           <!-- Menu lateral esquedo -->
-
           <div class="accordion" id="graph-editor">
             <div class="accordion-item">
               <h2 class="accordion-header">
@@ -82,65 +87,152 @@
                     <label for="exampleFormControlInput1" class="form-label"
                       >Título/Time:</label
                     >
-                    <input type="text" class="form-control" id="time" name="time" placeholder="Informe um título para o card, nome da time, equipe,...." />
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="time"
+                      name="time"
+                      placeholder="Informe um título para o card, nome da time, equipe,...."
+                    />
                   </div>
 
                   <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label"
                       >Data:</label
                     >
-                    <input type="date" class="form-control" id="time" name="date" placeholder="Informe um título para o card, nome da time, equipe,...." />
+                    <input
+                      type="date"
+                      class="form-control"
+                      id="time"
+                      name="date"
+                      placeholder="Informe um título para o card, nome da time, equipe,...."
+                    />
                   </div>
 
                   <div class="mb-3">
                     <label for="basic-url" class="form-label">Cores</label>
-                    <div class="input-group input-group-sm"">
-                      <span class="input-group-text" id="basic-addon3">Pontuação maior</span>
-                      <input type="text" class="form-control" id="cor_maior" value="#00b7ad">
+                    <div class="input-group input-group-sm">
+                      <span class="input-group-text" id="basic-addon3"
+                        >Pontuação maior</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="cor_maior"
+                        value="#00b7ad"
+                      />
                     </div>
-                    <div class="input-group input-group-sm"">
-                      <span class="input-group-text" id="basic-addon3">Pontuação media</span>
-                      <input type="text" class="form-control" id="cor_media" value="#ffd63f">
+                    <div class="input-group input-group-sm">
+                      <span class="input-group-text" id="basic-addon3"
+                        >Pontuação media</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="cor_media"
+                        value="#ffd63f"
+                      />
                     </div>
-                    <div class="input-group input-group-sm"">
-                      <span class="input-group-text" id="basic-addon3">Pontuação menor</span>
-                      <input type="text" class="form-control" id="cor_menor" value="#ff7474">
+                    <div class="input-group input-group-sm">
+                      <span class="input-group-text" id="basic-addon3"
+                        >Pontuação menor</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="cor_menor"
+                        value="#ff7474"
+                      />
                     </div>
                   </div>
-
                 </div>
               </div>
             </div>
-            
+
             <!-- Pessoas -->
             <div class="accordion-item">
               <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo" >
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#panelsStayOpen-collapseTwo"
+                  aria-expanded="true"
+                  aria-controls="panelsStayOpen-collapseTwo"
+                >
                   Pessoas
                 </button>
               </h2>
-              <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" >
+              <div
+                id="panelsStayOpen-collapseTwo"
+                class="accordion-collapse collapse"
+              >
                 <div class="accordion-body">
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-text" id="basic-addon1">Colaboração e comunicação</span>
-                        <input type="number" class="form-control" name="0" min="1" max="5" value="1">
-                    </div>
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-text" id="basic-addon1">Motivação e confiança</span>
-                        <input type="number" class="form-control" name="1" min="1" max="5" value="2">
-                    </div>
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-text" id="basic-addon1">Autonomia e auto-organização</span>
-                        <input type="number" class="form-control" name="2" min="1" max="5" value="3">
-                    </div>
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-text" id="basic-addon1">Kaizen</span>
-                        <input type="number" class="form-control" name="3" min="1" max="5" value="4">
-                    </div>
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-text" id="basic-addon1">Interdisciplinaridade</span>
-                        <input type="number" class="form-control" name="4" min="1" max="5" value="5">
-                    </div>
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text" id="basic-addon1"
+                      >Colaboração e comunicação</span
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="0"
+                      min="1"
+                      max="5"
+                      value="1"
+                    />
+                  </div>
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text" id="basic-addon1"
+                      >Motivação e confiança</span
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="1"
+                      min="1"
+                      max="5"
+                      value="1"
+                    />
+                  </div>
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text" id="basic-addon1"
+                      >Autonomia e auto-organização</span
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="2"
+                      min="1"
+                      max="5"
+                      value="1"
+                    />
+                  </div>
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text" id="basic-addon1"
+                      >Kaizen</span
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="3"
+                      min="1"
+                      max="5"
+                      value="1"
+                    />
+                  </div>
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text" id="basic-addon1"
+                      >Interdisciplinaridade</span
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="4"
+                      min="1"
+                      max="5"
+                      value="1"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -148,32 +240,87 @@
             <!-- Experimente -->
             <div class="accordion-item">
               <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo" >
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#panelsStayOpen-collapseTwo"
+                  aria-expanded="true"
+                  aria-controls="panelsStayOpen-collapseTwo"
+                >
                   Experimente
                 </button>
               </h2>
-              <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" >
+              <div
+                id="panelsStayOpen-collapseTwo"
+                class="accordion-collapse collapse"
+              >
                 <div class="accordion-body">
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-text" id="basic-addon1">Práticas Lean-Agile</span>
-                        <input type="number" class="form-control" name="5" min="1" max="5" value="1">
-                    </div>
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-text" id="basic-addon1">Métricas e ferramentas</span>
-                        <input type="number" class="form-control" name="6" min="1" max="5" value="1">
-                    </div>
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-text" id="basic-addon1">Comprometimento com o produto</span>
-                        <input type="number" class="form-control" name="7" min="1" max="5" value="1">
-                    </div>
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-text" id="basic-addon1">Compartilhamento de conhecimento</span>
-                        <input type="number" class="form-control" name="8" min="1" max="5" value="1">
-                    </div>
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-text" id="basic-addon1">Ritmo das entregas</span>
-                        <input type="number" class="form-control" name="9" min="1" max="5" value="1">
-                    </div>
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text" id="basic-addon1"
+                      >Práticas Lean-Agile</span
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="5"
+                      min="1"
+                      max="5"
+                      value="1"
+                    />
+                  </div>
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text" id="basic-addon1"
+                      >Métricas e ferramentas</span
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="6"
+                      min="1"
+                      max="5"
+                      value="1"
+                    />
+                  </div>
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text" id="basic-addon1"
+                      >Comprometimento com o produto</span
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="7"
+                      min="1"
+                      max="5"
+                      value="1"
+                    />
+                  </div>
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text" id="basic-addon1"
+                      >Compartilhamento de conhecimento</span
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="8"
+                      min="1"
+                      max="5"
+                      value="1"
+                    />
+                  </div>
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text" id="basic-addon1"
+                      >Ritmo das entregas</span
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="9"
+                      min="1"
+                      max="5"
+                      value="1"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -181,32 +328,87 @@
             <!-- Segurança -->
             <div class="accordion-item">
               <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo" >
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#panelsStayOpen-collapseTwo"
+                  aria-expanded="true"
+                  aria-controls="panelsStayOpen-collapseTwo"
+                >
                   Segurança
                 </button>
               </h2>
-              <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" >
+              <div
+                id="panelsStayOpen-collapseTwo"
+                class="accordion-collapse collapse"
+              >
                 <div class="accordion-body">
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-text" id="basic-addon1">Código sustentável</span>
-                        <input type="number" class="form-control" name="10" min="1" max="5" value="1">
-                    </div>
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-text" id="basic-addon1">Automações (Pipeline)</span>
-                        <input type="number" class="form-control" name="11" min="1" max="5" value="1">
-                    </div>
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-text" id="basic-addon1">BDD/TDD e Clean Code</span>
-                        <input type="number" class="form-control" name="12" min="1" max="5" value="1">
-                    </div>
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-text" id="basic-addon1">Qualidade E2E</span>
-                        <input type="number" class="form-control" name="13" min="1" max="5" value="1">
-                    </div>
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-text" id="basic-addon1">DevOps</span>
-                        <input type="number" class="form-control" name="14" min="1" max="5" value="1">
-                    </div>
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text" id="basic-addon1"
+                      >Código sustentável</span
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="10"
+                      min="1"
+                      max="5"
+                      value="1"
+                    />
+                  </div>
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text" id="basic-addon1"
+                      >Automações (Pipeline)</span
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="11"
+                      min="1"
+                      max="5"
+                      value="1"
+                    />
+                  </div>
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text" id="basic-addon1"
+                      >BDD/TDD e Clean Code</span
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="12"
+                      min="1"
+                      max="5"
+                      value="1"
+                    />
+                  </div>
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text" id="basic-addon1"
+                      >Qualidade E2E</span
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="13"
+                      min="1"
+                      max="5"
+                      value="1"
+                    />
+                  </div>
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text" id="basic-addon1"
+                      >DevOps</span
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="14"
+                      min="1"
+                      max="5"
+                      value="1"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -214,127 +416,211 @@
             <!-- Valor -->
             <div class="accordion-item">
               <h2 class="accordion-header">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="true" aria-controls="panelsStayOpen-collapseTwo" >
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target="#panelsStayOpen-collapseTwo"
+                  aria-expanded="true"
+                  aria-controls="panelsStayOpen-collapseTwo"
+                >
                   Valor
                 </button>
               </h2>
-              <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse" >
+              <div
+                id="panelsStayOpen-collapseTwo"
+                class="accordion-collapse collapse"
+              >
                 <div class="accordion-body">
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-text" id="basic-addon1">Quebra de Stories, Features e Epics</span>
-                        <input type="number" class="form-control" name="15" min="1" max="5" value="1">
-                    </div>
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-text" id="basic-addon1">UX</span>
-                        <input type="number" class="form-control" name="16" min="1" max="5" value="1">
-                    </div>
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-text" id="basic-addon1">Entrega de valor</span>
-                        <input type="number" class="form-control" name="17" min="1" max="5" value="1">
-                    </div>
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-text" id="basic-addon1">Relacionamento com negócio</span>
-                        <input type="number" class="form-control" name="18" min="1" max="5" value="1">
-                    </div>
-                    <div class="input-group input-group-sm">
-                        <span class="input-group-text" id="basic-addon1">Satisfação do cliente</span>
-                        <input type="number" class="form-control" name="19" min="1" max="5" value="1">
-                    </div>
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text" id="basic-addon1"
+                      >Quebra de Stories, Features e Epics</span
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="15"
+                      min="1"
+                      max="5"
+                      value="1"
+                    />
+                  </div>
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text" id="basic-addon1">UX</span>
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="16"
+                      min="1"
+                      max="5"
+                      value="1"
+                    />
+                  </div>
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text" id="basic-addon1"
+                      >Entrega de valor</span
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="17"
+                      min="1"
+                      max="5"
+                      value="1"
+                    />
+                  </div>
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text" id="basic-addon1"
+                      >Relacionamento com negócio</span
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="18"
+                      min="1"
+                      max="5"
+                      value="1"
+                    />
+                  </div>
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text" id="basic-addon1"
+                      >Satisfação do cliente</span
+                    >
+                    <input
+                      type="number"
+                      class="form-control"
+                      name="19"
+                      min="1"
+                      max="5"
+                      value="1"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="col text-center">    
-            <!-- Canvas com a roda ágil -->
-            <canvas id="canvas-show" width="800"></canvas>
-            <canvas id="canvas-out" width="1400" hidden="true"></canvas>
+        <div class="col text-center">
+          <!-- Canvas com a roda ágil -->
+          <canvas id="canvas-show" width="800"></canvas>
+          <canvas id="canvas-out" width="1400" hidden="true"></canvas>
         </div>
       </div>
     </div>
 
     <!-- Javascripts -->
-    <script src="./js/bootstrap.min.js"></script>
-    <script src="./js/rodaagilchart.js"></script>
+    <!-- Bootstrap -->
+    <script type="text/javascript" src="./js/bootstrap.min.js"></script>
+    <!-- XLS -->
+    <script type="text/javascript" src="./js/shim.min.js"></script>
+    <script type="text/javascript" src="./js/xlsx.full.min.js"></script>
+    <!-- Local -->
+    <script type="text/javascript" src="./js/xlssupport.js"></script>
+    <script type="text/javascript" src="./js/rodaagilchart.js"></script>
+
     <script>
       var formEditor = document.querySelector("#graph-editor");
       var currentDate = new Date();
       var chartProps = {
-        time: '',
-        date: '',
+        time: "",
+        date: "",
         colors: {
           text: "#002c5b",
-          min: "#ff7474", 
-          med: "#ffd63f", 
+          min: "#ff7474",
+          med: "#ffd63f",
           max: "#00b7ad",
         },
         groups: [
-          { 
-            title: 'Valor',
-            subtitle: 'a Todo instante',
+          {
+            title: "Valor",
+            subtitle: "a Todo instante",
             itens: [
-            { title: 'Colaboração e comunicação', value: 2 },
-            { title: 'Motivação e confiança', value: 3 },
-            { title: 'Autonomia e auto-organização', value: 3 },
-            { title: 'Kaizen', value: 4 },
-            { title: 'Interdisciplinaridade', value: 4 },
-          ]},
-          { 
-            title: 'Pessoas',
-            subtitle: 'sensacionais',
+              { title: "Colaboração e comunicação", value: 1 },
+              { title: "Motivação e confiança", value: 1 },
+              { title: "Autonomia e auto-organização", value: 1 },
+              { title: "Kaizen", value: 1 },
+              { title: "Interdisciplinaridade", value: 1 },
+            ],
+          },
+          {
+            title: "Pessoas",
+            subtitle: "sensacionais",
             itens: [
-            { title: 'Práticas Lean-Agile', value: 1},
-            { title: 'Métricas e ferramentas', value: 2},
-            { title: 'Comprometimento com o produto', value: 5},
-            { title: 'Compartilhamento de conhecimento', value: 3},
-            { title: 'Ritmo das entregas', value: 1},
-          ]},
-          { 
-            title: 'Experimente',
-            subtitle: 'e aprenda rápido',
+              { title: "Práticas Lean-Agile", value: 1 },
+              { title: "Métricas e ferramentas", value: 1 },
+              { title: "Comprometimento com o produto", value: 1 },
+              { title: "Compartilhamento de conhecimento", value: 1 },
+              { title: "Ritmo das entregas", value: 1 },
+            ],
+          },
+          {
+            title: "Experimente",
+            subtitle: "e aprenda rápido",
             itens: [
-            { title: 'Código sustentável', value: 3},
-            { title: 'Automações (Pipeline)', value: 1},
-            { title: 'BDD/TDD e Clean Code', value: 4},
-            { title: 'Qualidade E2E', value: 1},
-            { title: 'DevOps', value: 5}
-          ]},
-          { 
+              { title: "Código sustentável", value: 1 },
+              { title: "Automações (Pipeline)", value: 1 },
+              { title: "BDD/TDD e Clean Code", value: 1 },
+              { title: "Qualidade E2E", value: 1 },
+              { title: "DevOps", value: 1 },
+            ],
+          },
+          {
             title: "Segurança",
-            subtitle: 'um pré requisito',
+            subtitle: "um pré requisito",
             itens: [
-            { title: 'Quebra de Stories, Features e Epics', value: 2},
-            { title: 'UX', value: 1},
-            { title: 'Entrega de valor', value: 4},
-            { title: 'Relacionamento com negócio', value: 2},
-            { title: 'Satisfação do cliente', value: 3},
-          ]}
+              { title: "Quebra de Stories, Features e Epics", value: 1 },
+              { title: "UX", value: 1 },
+              { title: "Entrega de valor", value: 1 },
+              { title: "Relacionamento com negócio", value: 1 },
+              { title: "Satisfação do cliente", value: 1 },
+            ],
+          },
         ],
-        itens: []
+        itens: [],
       };
 
       // Ajusta tamanho do canvas
-      document.getElementById('canvas-show').width = window.innerHeight - 130;
-      formEditor.querySelector("input[name=date]").value = currentDate.getFullYear() + '-' + 
-        (currentDate.getMonth() < 9 ? '0' + (currentDate.getMonth() + 1) : currentDate.getMonth()) + '-' +
-        (currentDate.getDate() < 10 ? '0' + currentDate.getDate() : currentDate.getDate());
+      document.getElementById("canvas-show").width = window.innerHeight - 130;
+      formEditor.querySelector("input[name=date]").value =
+        currentDate.getFullYear() +
+        "-" +
+        (currentDate.getMonth() < 9
+          ? "0" + (currentDate.getMonth() + 1)
+          : currentDate.getMonth()) +
+        "-" +
+        (currentDate.getDate() < 10
+          ? "0" + currentDate.getDate()
+          : currentDate.getDate());
 
       function loadFormValues() {
-        chartProps.time = formEditor.querySelector("input[name=time]")?.value || '';
-        chartProps.date = formEditor.querySelector("input[name=date]")?.value || '';
-        chartProps.colors.min = formEditor.querySelector("input[id=cor_menor]")?.value || '';
-        chartProps.colors.med = formEditor.querySelector("input[id=cor_media]")?.value || '';
-        chartProps.colors.max = formEditor.querySelector("input[id=cor_maior]")?.value || '';
-        
+        chartProps.time =
+          formEditor.querySelector("input[name=time]")?.value || "";
+        chartProps.date =
+          formEditor.querySelector("input[name=date]")?.value || "";
+        chartProps.colors.min =
+          formEditor.querySelector("input[id=cor_menor]")?.value || "";
+        chartProps.colors.med =
+          formEditor.querySelector("input[id=cor_media]")?.value || "";
+        chartProps.colors.max =
+          formEditor.querySelector("input[id=cor_maior]")?.value || "";
+
         for (var i = 0; i < 20; i++) {
           var input = formEditor.querySelector('input[name="' + i + '"]');
-          
+
           if (!chartProps.itens[i]) {
             chartProps.itens[i] = {};
           }
           chartProps.itens[i].value = input ? input.value : "";
         }
       }
+
+      formEditor.addEventListener("change", function () {
+        loadFormValues();
+        draw(canvasShow, chartProps);
+      });
+
+      loadFormValues();
+      draw(canvasShow, chartProps);
 
       // Botão salvar imagem
       document.getElementById("salvar").addEventListener("click", function (e) {
@@ -345,13 +631,33 @@
         return false;
       });
 
-      formEditor.addEventListener("change", function () {
-        loadFormValues();
-        draw(canvasShow, chartProps);
-      });
+      // Exportar
+      document
+        .getElementById("importar")
+        .addEventListener("click", function (e) {
+          loadFormValues();
+          draw(canvasOut, chartProps);
+          this.href = imgData; // source
+          this.download = "Roda-Agil.png"; // nome da imagem
+          return false;
+        });
 
-      loadFormValues();
-      draw(canvasShow, chartProps);
+      // Importar
+      document
+        .getElementById("exportar")
+        .addEventListener("click", function (e) {
+          const contents = [
+            { field: "time", data: chartProps.time },
+            { field: "date", data: chartProps.date },
+            { field: "color.text", data: chartProps.colors.text },
+            { field: "color.min", data: chartProps.colors.min },
+            { field: "color.med", data: chartProps.colors.med },
+            { field: "color.max", data: chartProps.colors.max },
+          ];
+
+          exportXLS({ contents, filename: "roda_agil" });
+          return false;
+        });
     </script>
   </body>
 </html>

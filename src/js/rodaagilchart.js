@@ -202,6 +202,7 @@ function drawTitles(cx, chartProps) {
 
       var angle =
         key * chartValues.sliceAngle +
+        Math.PI * 1.5 +
         chartValues.sliceAngle * 0.02 +
         keyTxt * 0.005;
       var distance =
