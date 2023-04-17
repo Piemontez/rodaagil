@@ -4,14 +4,31 @@
     <title>Roda Ágil</title>
 
     <meta charset="UTF-8" />
-    <meta name="description" content="Microsistema Roda Ágil para auxiliar na avaliação de agilidade de uma equipe de desenvolvimento.">
+    <meta
+      name="description"
+      content="Microsistema Roda Ágil para auxiliar na avaliação de agilidade de uma equipe de desenvolvimento."
+    />
     <meta property="og:title" content="Roda Ágil" />
-    <meta property="og:description" content="Microsistema Roda Ágil para auxiliar na avaliação de agilidade de uma equipe de desenvolvimento." />
-    <meta property="og:image" content="https://rodaagil.agile.thalamus.digital/imgs/os_image.png" />
+    <meta
+      property="og:description"
+      content="Microsistema Roda Ágil para auxiliar na avaliação de agilidade de uma equipe de desenvolvimento."
+    />
+    <meta
+      property="og:image"
+      content="https://rodaagil.agile.thalamus.digital/imgs/os_image.png"
+    />
     <meta property="og:type" content="website" />
 
     <!-- CSS -->
     <link rel="stylesheet" href="./css/bootstrap.min.css" />
+    <style>
+      #footer {
+        margin-top: 30px;
+        padding-top: 40px;
+        padding-bottom: 30px;
+        background-color: #ddd;
+      }
+    </style>
   </head>
   <body>
     <main>
@@ -38,34 +55,6 @@
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link" id="salvar">Gerar Imagem</a>
-            </li>
-
-            <li class="nav-item dropdown">
-              <a
-                class="nav-link dropdown-toggle"
-                href="#"
-                data-bs-toggle="dropdown"
-              >
-                Sobre
-              </a>
-              <ul class="dropdown-menu">
-                <li class="nav-item">
-                  <a
-                    href="https://www.anagsoares.com/category/roda-agil/"
-                    target="_blank"
-                    class="nav-link"
-                    >Blog Roda Agil</a
-                  >
-                </li>
-                <li class="nav-item">
-                  <a
-                    href="https://github.com/Piemontez/rodaagil"
-                    target="_blank"
-                    class="nav-link"
-                    >Código Fonte</a
-                  >
-                </li>
-              </ul>
             </li>
           </ul>
         </header>
@@ -182,6 +171,42 @@
         </div>
       </div>
     </div>
+
+    <div id="footer" class="container-fluid">
+      <div class="row">
+        <div class="col"></div>
+        <div class="col">
+          Microsistema Roda Ágil <br />
+          desenvolvido para auxiliar na avaliação de agilidade de uma equipe.
+        </div>
+        <div class="col"></div>
+        <div class="col">
+          Esta ferramenta foi construida com base no livro
+          <strong>Roda Ágil</strong> da autora
+          <a href="https://www.anagsoares.com/" target="_blank">
+            Ana G Soares.
+          </a>
+        </div>
+        <div class="col"></div>
+        <div class="col">
+          Desenvolvidor por
+          <a
+            href="https://www.anagsoares.com/category/roda-agil/"
+            target="_blank"
+            >Thalamus</a
+          >
+
+          Link do
+          <a
+            href="https://github.com/Piemontez/rodaagil"
+            target="_blank""
+            >Código Fonte</a
+          >
+        </div>
+        <div class="col"></div>
+      </div>
+    </div>
+
     <input type="file" id="thefile" style="display: none" />
 
     <!-- Javascripts -->
