@@ -62,6 +62,9 @@ function drawScore(cx, chartProps) {
 
   for (var i = 5; i > 0; i--) {
     chartProps.itens.forEach(function (result) {
+      if (result.value > 5) result.value = 5;
+      if (result.value < 1) result.value = 1;
+
       color = result.value >= i ? colors[result.value - 1] : "white";
 
       cx.fillStyle = color;
