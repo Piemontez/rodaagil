@@ -4,4 +4,4 @@ Microsistema Roda Ágil para auxiliar na avaliação de agilidade de uma equipe 
 
 Sistema disponível em: [https://rodaagil.agile.thalamus.digital/](https://thalamus.digital/)
 
-Esta ferramenta foi construida com base no livro Roda Ágil da autora Ana G Soares.
+Esta ferramenta foi construida com base na Roda Ágil da autora Ana G Soares.
