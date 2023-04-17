@@ -44,7 +44,6 @@
                 Sobre
               </a>
               <ul class="dropdown-menu">
-                
                 <li class="nav-item">
                   <a
                     href="https://www.anagsoares.com/category/roda-agil/"
@@ -121,6 +120,17 @@
 
                   <div class="mb-3">
                     <label for="basic-url" class="form-label">Cores</label>
+                    <div class="input-group input-group-sm">
+                      <span class="input-group-text" id="basic-addon3"
+                        >Textos e Linhas</span
+                      >
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="texto"
+                        value="#002c5b"
+                      />
+                    </div>
                     <div class="input-group input-group-sm">
                       <span class="input-group-text" id="basic-addon3"
                         >Pontuação maior</span
@@ -325,6 +335,8 @@
           formEditor.querySelector("input[name=time]")?.value || "";
         chartProps.date =
           formEditor.querySelector("input[name=date]")?.value || "";
+        chartProps.colors.text =
+          formEditor.querySelector("input[id=texto]")?.value || "";
         chartProps.colors.min =
           formEditor.querySelector("input[id=cor_menor]")?.value || "";
         chartProps.colors.med =
