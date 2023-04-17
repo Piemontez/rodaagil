@@ -26,7 +26,7 @@
 
           <ul class="nav">
             <li class="nav-item">
-              <a href="#" class="nav-link" id="importar">Importar</a>
+              <a href="#" class="nav-link" id="importar">Importar </a>
             </li>
             <li class="nav-item">
               <a href="#" class="nav-link" id="exportar">Exportar</a>
@@ -507,6 +507,7 @@
         </div>
       </div>
     </div>
+    <input type="file" id="thefile" style="display: none" />
 
     <!-- Javascripts -->
     <!-- Bootstrap -->
@@ -631,14 +632,88 @@
         return false;
       });
 
+      document.getElementById("thefile").addEventListener("change", (event) => {
+        const fileList = event.target.files;
+        const file = fileList[0];
+        const reader = new FileReader();
+
+        reader.onloadend = (e) => {
+          let json = null;
+          try {
+            if (!(file.name || "").toLowerCase().includes("xls")) {
+              toast.warn("Envie um arquivo XLS válido");
+              this.loaded();
+              return;
+            }
+
+            json = importarXLS(e.target.result);
+          } catch (rs) {
+            alert("Formato de arquivo inválido");
+            return;
+          }
+          chartProps = {
+            time: "",
+            date: "",
+            colors: {
+              text: "#002c5b",
+              min: "#ff7474",
+              med: "#ffd63f",
+              max: "#00b7ad",
+            },
+            groups: [],
+          };
+
+          for (const line of json) {
+            switch (line.field) {
+              case "time":
+                chartProps.time = line.data;
+                break;
+              case "date":
+                chartProps.date = line.data;
+                break;
+              case "color.text":
+                chartProps.colors.text = line.data;
+                break;
+              case "color.min":
+                chartProps.colors.min = line.data;
+                break;
+              case "color.med":
+                chartProps.colors.med = line.data;
+                break;
+              case "color.max":
+                chartProps.colors.max = line.data;
+                break;
+              case "group":
+                chartProps.groups.push({
+                  title: line.data,
+                  subtitle: line.data2,
+                  itens: [],
+                });
+                break;
+              case "item":
+                chartProps.groups[chartProps.groups.length - 1].itens.push({
+                  title: ("" + line.data).toString(),
+                  value: line.dat2,
+                });
+                break;
+            }
+          }
+
+          draw(canvasShow, chartProps);
+        };
+        reader.readAsBinaryString(file);
+      });
+
       // Exportar
       document
         .getElementById("importar")
         .addEventListener("click", function (e) {
-          loadFormValues();
-          draw(canvasOut, chartProps);
-          this.href = imgData; // source
-          this.download = "Roda-Agil.png"; // nome da imagem
+          var elem = document.getElementById("thefile");
+          if (elem && document.createEvent) {
+            var evt = document.createEvent("MouseEvents");
+            evt.initEvent("click", true, false);
+            elem.dispatchEvent(evt);
+          }
           return false;
         });
 
@@ -646,14 +721,30 @@
       document
         .getElementById("exportar")
         .addEventListener("click", function (e) {
-          const contents = [
-            { field: "time", data: chartProps.time },
-            { field: "date", data: chartProps.date },
+          var contents = [
+            { field: "time", data: chartProps.time, data2: null },
+            { field: "date", data: chartProps.date, data2: null },
             { field: "color.text", data: chartProps.colors.text },
             { field: "color.min", data: chartProps.colors.min },
             { field: "color.med", data: chartProps.colors.med },
             { field: "color.max", data: chartProps.colors.max },
           ];
+
+          for (var group of chartProps.groups) {
+            contents.push({
+              field: "group",
+              data: group.title,
+              data2: group.subtitle,
+            });
+
+            for (var item of group.itens) {
+              contents.push({
+                field: "item",
+                data: item.title,
+                data2: item.value,
+              });
+            }
+          }
 
           exportXLS({ contents, filename: "roda_agil" });
           return false;

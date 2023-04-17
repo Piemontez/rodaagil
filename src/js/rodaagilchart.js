@@ -148,28 +148,36 @@ function drawHeaders(cx, chartProps) {
   heightTitle = height * 0.10230769230769231;
   heightSubTitle = height * 0.12330769230769231;
 
-  cx.font = chartValues.fontTitle;
-  cx.fillText(chartProps.groups[0].title, width * 0.0125, heightTitle);
-  cx.font = chartValues.fontSubtitle;
-  cx.fillText(chartProps.groups[0].subtitle, width * 0.0125, heightSubTitle);
+  if (chartProps.groups.length > 0) {
+    cx.font = chartValues.fontTitle;
+    cx.fillText(chartProps.groups[0].title, width * 0.0125, heightTitle);
+    cx.font = chartValues.fontSubtitle;
+    cx.fillText(chartProps.groups[0].subtitle, width * 0.0125, heightSubTitle);
+  }
 
-  cx.font = chartValues.fontTitle;
-  cx.fillText(chartProps.groups[1].title, width * 0.865, heightTitle);
-  cx.font = chartValues.fontSubtitle;
-  cx.fillText(chartProps.groups[1].subtitle, width * 0.895, heightSubTitle);
+  if (chartProps.groups.length > 1) {
+    cx.font = chartValues.fontTitle;
+    cx.fillText(chartProps.groups[1].title, width * 0.865, heightTitle);
+    cx.font = chartValues.fontSubtitle;
+    cx.fillText(chartProps.groups[1].subtitle, width * 0.895, heightSubTitle);
+  }
 
   heightTitle = height * 0.9569230769230769;
   heightSubTitle = height * 0.9769230769230769;
 
-  cx.font = chartValues.fontTitle;
-  cx.fillText(chartProps.groups[2].title, width * 0.81, heightTitle);
-  cx.font = chartValues.fontSubtitle;
-  cx.fillText(chartProps.groups[2].subtitle, width * 0.87125, heightSubTitle);
+  if (chartProps.groups.length > 2) {
+    cx.font = chartValues.fontTitle;
+    cx.fillText(chartProps.groups[2].title, width * 0.81, heightTitle);
+    cx.font = chartValues.fontSubtitle;
+    cx.fillText(chartProps.groups[2].subtitle, width * 0.87125, heightSubTitle);
+  }
 
-  cx.font = chartValues.fontTitle;
-  cx.fillText(chartProps.groups[3].title, width * 0.0125, heightTitle);
-  cx.font = chartValues.fontSubtitle;
-  cx.fillText(chartProps.groups[3].subtitle, width * 0.0125, heightSubTitle);
+  if (chartProps.groups.length > 3) {
+    cx.font = chartValues.fontTitle;
+    cx.fillText(chartProps.groups[3].title, width * 0.0125, heightTitle);
+    cx.font = chartValues.fontSubtitle;
+    cx.fillText(chartProps.groups[3].subtitle, width * 0.0125, heightSubTitle);
+  }
 }
 
 function splitText(txt) {
