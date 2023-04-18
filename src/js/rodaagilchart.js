@@ -2,9 +2,10 @@ var results = [];
 var canvasShow = document.querySelector("#canvas-show");
 var canvasOut = document.querySelector("#canvas-out");
 var imgData = canvasOut.toDataURL(); // por padrão, a imagem é PNG
+var fontFamily = "Trebuchet MS";
 
 var chartValues = {
-  fontTitle: "0px  Arial",
+  fontTitle: "0px " + fontFamily,
   startAngle: -0.5 * Math.PI,
   currentAngle: -0.5 * Math.PI,
   sliceAngle: (1 / 20) * 2 * Math.PI,
@@ -31,8 +32,8 @@ function configureChart(canvas, chartProps) {
   chartValues.width = canvas.width;
   chartValues.height = canvas.height;
 
-  chartValues.fontTitle = 0.03125 * chartValues.width + "px  Arial";
-  chartValues.fontSubtitle = 0.015 * chartValues.width + "px  Arial";
+  chartValues.fontTitle = 0.03125 * chartValues.width + "px " + fontFamily;
+  chartValues.fontSubtitle = 0.015 * chartValues.width + "px " + fontFamily;
 }
 
 function makeScorePath(centerX, centerY, radius, startAngle, endAngle) {
@@ -45,9 +46,13 @@ function makeScorePath(centerX, centerY, radius, startAngle, endAngle) {
 
 function drawBorder(cx, width, height) {
   cx.fillStyle = "white";
+  cx.strokeStyle = chartProps.colors.text;
+
   cx.fillRect(0, 0, width, height);
   cx.rect(0, 0, width, height);
-  cx.stroke();
+  if (chartProps.drawborder) {
+    cx.stroke();
+  }
 }
 
 function drawScore(cx, chartProps) {
@@ -200,7 +205,7 @@ function splitText(txt) {
 
 function drawTitles(cx, chartProps) {
   // Cultura
-  cx.font = 0.015 * chartValues.width + "px Arial";
+  cx.font = 0.015 * chartValues.width + "px " + fontFamily;
   cx.fillStyle = chartProps.colors.text;
 
   for (var key in chartProps.itens) {

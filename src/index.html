@@ -226,6 +226,7 @@
       var chartProps = {
         time: "",
         date: "",
+        drawborder: false,
         colors: {
           text: "#002c5b",
           min: "#ff7474",
@@ -361,6 +362,7 @@
       }
 
       function loadFormValues() {
+        chartProps.drawborder = false;
         chartProps.time =
           formEditor.querySelector("input[name=time]")?.value || "";
         chartProps.date =
@@ -392,9 +394,13 @@
       // Botão salvar imagem
       document.getElementById("salvar").addEventListener("click", function (e) {
         loadFormValues();
+        chartProps.drawborder = true;
+
         draw(canvasOut, chartProps);
-        this.href = imgData; // source
-        this.download = "Roda-Agil.png"; // nome da imagem
+        
+        this.href = imgData;
+        this.download = "Roda-Agil.png";
+        
         return false;
       });
 
