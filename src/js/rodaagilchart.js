@@ -2,7 +2,7 @@ var results = [];
 var canvasShow = document.querySelector("#canvas-show");
 var canvasOut = document.querySelector("#canvas-out");
 var imgData = canvasOut.toDataURL(); // por padrão, a imagem é PNG
-var fontFamily = "Trebuchet MS";
+var fontFamily = "Roboto";
 
 var chartValues = {
   fontTitle: "0px " + fontFamily,
