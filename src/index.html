@@ -106,11 +106,67 @@
                     <input
                       type="date"
                       class="form-control"
-                      id="time"
+                      id="date"
                       name="date"
                       placeholder="Informe um título para o card, nome da time, equipe,...."
                     />
                   </div>
+                  
+
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text" id="basic-addon3"
+                      >
+                      <input
+                        type="checkbox"
+                        class="form-check-input"
+                        id="showTitle"
+                        name="showTitle"
+                        checked
+                      /></span
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      value="Exibir título"
+                      readonly
+                    />
+                  </div>
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text" id="basic-addon3"
+                      >
+                      <input
+                        type="checkbox"
+                        class="form-check-input"
+                        id="showDate"
+                        name="showDate"
+                        checked
+                      /></span
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      value="Exibir data"
+                      readonly
+                    />
+                  </div>
+                  <div class="input-group input-group-sm">
+                    <span class="input-group-text" id="basic-addon3"
+                      >
+                      <input
+                        type="checkbox"
+                        class="form-check-input"
+                        id="showSubtitles"
+                        name="showSubtitles"
+                      /></span
+                    >
+                    <input
+                      type="text"
+                      class="form-control"
+                      value="Exibir subtítulos"
+                      readonly
+                    />
+                  </div>
+                  <br />
 
                   <div class="mb-3">
                     <label for="basic-url" class="form-label">Cores</label>
@@ -227,6 +283,9 @@
         time: "",
         date: "",
         drawborder: false,
+        showTitle: true,
+        showDate: true,
+        showSubtitles: false,
         colors: {
           text: "#002c5b",
           min: "#ff7474",
@@ -367,6 +426,14 @@
           formEditor.querySelector("input[name=time]")?.value || "";
         chartProps.date =
           formEditor.querySelector("input[name=date]")?.value || "";
+
+        chartProps.showTitle =
+          formEditor.querySelector("input[name=showTitle]")?.checked;
+        chartProps.showDate =
+          formEditor.querySelector("input[name=showDate]")?.checked;
+        chartProps.showSubtitles =
+          formEditor.querySelector("input[name=showSubtitles]")?.checked;
+          
         chartProps.colors.text =
           formEditor.querySelector("input[id=texto]")?.value || "";
         chartProps.colors.min =
@@ -443,6 +510,15 @@
               case "date":
                 chartProps.date = line.data;
                 break;
+              case "showTitle":
+                chartProps.showTitle = (line.data || '').toLowerCase() === 'true';
+                break;
+              case "showDate":
+                chartProps.showDate = (line.data || '').toLowerCase() === 'true';
+                break;
+              case "showSubtitles":
+                chartProps.showSubtitles = (line.data || '').toLowerCase() === 'true';
+                break;
               case "color.text":
                 chartProps.colors.text = line.data;
                 break;
@@ -497,6 +573,9 @@
           var contents = [
             { field: "time", data: chartProps.time, data2: null },
             { field: "date", data: chartProps.date, data2: null },
+            { field: "showTitle", data: chartProps.showTitle ? 'true' : 'false', data2: null },
+            { field: "showDate", data: chartProps.showDate ? 'true' : 'false', data2: null },
+            { field: "showSubtitles", data: chartProps.showSubtitles ? 'true' : 'false', data2: null },
             { field: "color.text", data: chartProps.colors.text },
             { field: "color.min", data: chartProps.colors.min },
             { field: "color.med", data: chartProps.colors.med },
