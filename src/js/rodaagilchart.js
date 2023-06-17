@@ -255,6 +255,39 @@ function drawTitles(cx, chartProps) {
   }
 }
 
+function bindClick(canvasEl, chartProps) {
+  if (!canvasEl.bindedClick) {
+    canvasEl.bindedClick = true;
+
+    var cLeft = canvasEl.offsetLeft + canvasEl.clientLeft;
+    var cTop = canvasEl.offsetTop + canvasEl.clientTop;
+
+    canvasEl.addEventListener("click", function (event) {
+      var x = event.pageX - cLeft,
+        y = event.pageY - cTop;
+
+      var delta_x = x - chartValues.centerX;
+      var delta_y = y - chartValues.centerY;
+      var theta_radians = Math.atan2(delta_y, delta_x);
+      var distanceEuc = Math.sqrt(Math.pow(delta_x, 2) + Math.pow(delta_y, 2));
+      var slice = (chartValues.width * 0.82) / 2 / 5;
+      var value = Math.ceil(distanceEuc / slice);
+
+      if (value < 6) {
+        var idx = Math.floor(
+          (theta_radians + Math.PI + Math.PI * 1.5) / chartValues.sliceAngle
+        );
+        idx = idx % chartProps.itens.length;
+
+        chartProps.itens[idx].value = value;
+
+        makeForm(chartProps);
+        draw(canvasEl, chartProps);
+      }
+    });
+  }
+}
+
 function draw(canvas, chartProps) {
   var cx = canvas.getContext("2d");
   cx.save();
@@ -271,4 +304,6 @@ function draw(canvas, chartProps) {
   imgData = canvas.toDataURL();
 
   cx.restore();
+
+  bindClick(canvas, chartProps);
 }
