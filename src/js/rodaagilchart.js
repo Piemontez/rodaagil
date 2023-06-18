@@ -1,3 +1,7 @@
+/**
+ * Existem muitos POGs aqui.
+ */
+
 var results = [];
 var canvasShow = document.querySelector("#canvas-show");
 var canvasOut = document.querySelector("#canvas-out");
