@@ -393,7 +393,7 @@
 
           for (const item of group.itens) {
             const itemDiv = document.createElement("div");
-            const inputGroupSpan = document.createElement("span");
+            const inputGroupSpan = document.createElement("input");
             const itemInput = document.createElement("input");
 
             // Item
@@ -401,7 +401,9 @@
 
             // Span
             inputGroupSpan.className = "input-group-text";
-            inputGroupSpan.innerText = item.title;
+            inputGroupSpan.name = "t" + itemId;
+            inputGroupSpan.setAttribute("type", "text");
+            inputGroupSpan.setAttribute("value", item.title);
 
             itemInput.className = "form-control";
             itemInput.name = "" + itemId++;
@@ -447,11 +449,13 @@
           formEditor.querySelector("input[id=cor_maior]")?.value || "";
 
         for (var i = 0; i < 20; i++) {
+          var inputTitle = formEditor.querySelector('input[name="t' + i + '"]');
           var input = formEditor.querySelector('input[name="' + i + '"]');
 
           if (!chartProps.itens[i]) {
             chartProps.itens[i] = {};
           }
+          chartProps.itens[i].title = inputTitle ? inputTitle.value : "";
           chartProps.itens[i].value = input ? input.value : "";
         }
       }
