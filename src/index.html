@@ -65,7 +65,7 @@
       <div class="row">
         <div class="col-md-3" id="sidebar">
           <!-- Menu lateral esquedo -->
-          <div class="accordion" id="graph-editor">
+          <div class="accordion accordion-flush" id="graph-editor">
             <div class="accordion-item">
               <h2 class="accordion-header">
                 <button
@@ -456,7 +456,7 @@
             chartProps.itens[i] = {};
           }
           chartProps.itens[i].title = inputTitle ? inputTitle.value : "";
-          chartProps.itens[i].value = input ? input.value : "";
+          chartProps.itens[i].value = input ? input.value : ""; 
         }
       }
 
