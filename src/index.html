@@ -63,7 +63,7 @@
 
     <div class="container-fluid">
       <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3" id="sidebar">
           <!-- Menu lateral esquedo -->
           <div class="accordion" id="graph-editor">
             <div class="accordion-item">
@@ -341,7 +341,11 @@
       };
 
       // Ajusta tamanho do canvas
-      document.getElementById("canvas-show").width = window.innerHeight - 130;
+      var newWidth = window.innerWidth - document.getElementById("sidebar").offsetWidth - 40;
+      if (window.innerHeight - 130 < newWidth) {
+        newWidth = window.innerHeight - 130;
+      }
+      document.getElementById("canvas-show").width = newWidth;
       formEditor.querySelector("input[name=date]").value =
         currentDate.getFullYear() +
         "-" +
