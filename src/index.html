@@ -6,12 +6,12 @@
     <meta charset="UTF-8" />
     <meta
       name="description"
-      content="Microsistema Roda Ágil para auxiliar na avaliação de agilidade de uma equipe de desenvolvimento."
+      content="Microsistema Roda Ágil para auxiliar a medir a agilidade de uma equipe de desenvolvimento."
     />
     <meta property="og:title" content="Roda Ágil" />
     <meta
       property="og:description"
-      content="Microsistema Roda Ágil para auxiliar na avaliação de agilidade de uma equipe de desenvolvimento."
+      content="Microsistema Roda Ágil para auxiliar a medir a agilidade de uma equipe de desenvolvimento."
     />
     <meta
       property="og:image"
@@ -242,7 +242,7 @@
         <div class="col"></div>
         <div class="col">
           Microsistema Roda Ágil <br />
-          desenvolvido para auxiliar na avaliação de agilidade de uma equipe.
+          desenvolvido para auxiliar a medir a agilidade de uma equipe.
         </div>
         <div class="col"></div>
         <div class="col">
@@ -373,6 +373,7 @@
           .querySelectorAll(".group-accordion")
           .forEach((item) => item.remove());
 
+        let groupId = 0;
         let itemId = 0;
         for (const group of chartProps.groups) {
           const accordDiv = document.createElement("div");
@@ -380,6 +381,8 @@
           const titleButton = document.createElement("button");
           const collapseDiv = document.createElement("div");
           const bodyDiv = document.createElement("div");
+          const addButtonRow = document.createElement("div");
+          const addButton = document.createElement("button");
 
           // Accordion
           accordDiv.className = "accordion-item group-accordion";
@@ -402,7 +405,8 @@
           collapseDiv.append(bodyDiv);
           bodyDiv.className = "accordion-body";
 
-          for (const item of group.itens) {
+          for (const itemPos in group.itens) {
+            const item = group.itens[itemPos];
             const itemDiv = document.createElement("div");
             const inputGroupSpan = document.createElement("input");
             const itemInput = document.createElement("input");
@@ -417,22 +421,39 @@
             inputGroupSpan.setAttribute("value", item.title);
 
             itemInput.className = "form-control col-sm-2";
-            itemInput.name = "" + itemId++;
+            itemInput.name = "" + itemId;
             itemInput.setAttribute("type", "number");
-            itemInput.setAttribute("min", "1");
+            itemInput.setAttribute("min", "0");
             itemInput.setAttribute("max", "5");
+            itemInput.setAttribute("group-pos", "" + groupId);
+            itemInput.setAttribute("item-pos", "" + itemPos);
             itemInput.setAttribute("value", item.value);
+            itemInput.addEventListener("click", setItemValue);
 
             itemDiv.append(inputGroupSpan);
             itemDiv.append(itemInput);
 
             bodyDiv.append(itemDiv);
+            itemId++;
           }
+          
+          // Add button
+          addButtonRow.className = "row";
+
+          addButton.innerHTML = "+";
+          addButton.className = "btn btn-sm offset-sm-10 col-sm-1";
+          addButton.setAttribute("type", "button");
+          addButton.setAttribute("group-pos", "" + groupId);
+          addButton.addEventListener("click", addGroupItem);
+
+          bodyDiv.append(addButtonRow);
+          addButtonRow.append(addButton);
 
           accordDiv.append(headerH2);
           accordDiv.append(collapseDiv);
 
           formEditor.append(accordDiv);
+          groupId++;
         }
       }
 
@@ -459,16 +480,49 @@
         chartProps.colors.max =
           formEditor.querySelector("input[id=cor_maior]")?.value || "";
 
-        for (var i = 0; i < 20; i++) {
+        for (var i = 0; i < 100; i++) {
           var inputTitle = formEditor.querySelector('input[name="t' + i + '"]');
           var input = formEditor.querySelector('input[name="' + i + '"]');
 
-          if (!chartProps.itens[i]) {
-            chartProps.itens[i] = {};
+          if (inputTitle && input) {
+            if (!chartProps.itens[i]) {
+              chartProps.itens[i] = {};
+            }
+            chartProps.itens[i].title = inputTitle ? inputTitle.value : "";
+            chartProps.itens[i].value = input ? input.value : ""; 
           }
-          chartProps.itens[i].title = inputTitle ? inputTitle.value : "";
-          chartProps.itens[i].value = input ? input.value : ""; 
         }
+      }
+
+      function setItemValue() {
+        if (this.value === '0') {          
+          if (confirm("Deseja remover este item da lista?")) {
+            var groupPos = parseInt(this.getAttribute("group-pos"));
+            var itemPos = parseInt(this.getAttribute("item-pos"));
+            chartProps.groups[groupPos].itens.splice(itemPos,1);
+
+            chartProps.itens = [];
+
+            makeForm(chartProps);
+            loadFormValues();
+            draw(canvasShow, chartProps);
+          } else {
+            this.value = '1';
+          }
+        }
+      }
+
+      function addGroupItem() {
+        var groupPos = parseInt(this.getAttribute("group-pos"));
+        chartProps.groups[groupPos].itens.push({
+          title: "",
+          value: 1
+        })
+        chartProps.itens = [];
+
+        makeForm(chartProps);
+        loadFormValues();
+        draw(canvasShow, chartProps);
       }
 
       formEditor.addEventListener("change", function () {
