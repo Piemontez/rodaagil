@@ -99,28 +99,34 @@ function drawScore(cx, chartProps) {
 
 function drawLines(cx, chartProps) {
   var count = 0;
-  chartProps.itens.forEach(function (result) {
-    if (count == 4 || count == 9 || count == 14 || count == 19) {
-      var lineWidth = 4;
-    } else {
-      var lineWidth = 1;
-    }
-    count++;
-    cx.beginPath();
-    cx.strokeStyle = chartProps.colors.text;
+  var totalItens = 0
+  chartProps.groups.forEach(function (group) {
+    totalItens += group.itens.length;
+    group.itens.forEach(function (item) {
+      if (count == totalItens - 1) {
+        var lineWidth = 4;
+      } else {
+        var lineWidth = 1;
+      }
 
-    cx.arc(
-      chartValues.centerX,
-      chartValues.centerY,
-      chartValues.sizeControl * 6,
-      chartValues.currentAngle,
-      chartValues.currentAngle + chartValues.sliceAngle,
-      true
-    );
-    chartValues.currentAngle += chartValues.sliceAngle;
-    cx.lineTo(chartValues.centerX, chartValues.centerY);
-    cx.lineWidth = lineWidth;
-    cx.stroke();
+      cx.beginPath();
+      cx.strokeStyle = chartProps.colors.text;
+
+      cx.arc(
+        chartValues.centerX,
+        chartValues.centerY,
+        chartValues.sizeControl * 6,
+        chartValues.currentAngle,
+        chartValues.currentAngle + chartValues.sliceAngle,
+        true
+      );
+      chartValues.currentAngle += chartValues.sliceAngle;
+      cx.lineTo(chartValues.centerX, chartValues.centerY);
+      cx.lineWidth = lineWidth;
+      cx.stroke();
+
+      count++;
+    });
   });
 
   chartProps.itens.forEach(function (result) {
