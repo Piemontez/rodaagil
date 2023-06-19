@@ -22,8 +22,21 @@
     <!-- CSS -->
     <link rel="stylesheet" href="./css/bootstrap.min.css" />
     <style>
+      .accordion-header button {
+        padding: calc(var(--bs-accordion-btn-padding-y) - 8px) 
+          calc(var(--bs-accordion-btn-padding-x) - 5px) 
+          calc(var(--bs-accordion-btn-padding-y) - 9px) 
+          calc(var(--bs-accordion-btn-padding-x) - 5px);
+      }
+      .accordion-body {
+        padding: calc(var(--bs-accordion-body-padding-y) - 10px)
+          calc(var(--bs-accordion-body-padding-x) - 10px)
+          calc(var(--bs-accordion-body-padding-y) - 10px)
+          calc(var(--bs-accordion-body-padding-x) + 5px);
+      }
+
       #footer {
-        margin-top: 30px;
+        margin-top: 10px;
         padding-top: 40px;
         padding-bottom: 30px;
         background-color: #ddd;
@@ -68,20 +81,18 @@
           <div class="accordion accordion-flush" id="graph-editor">
             <div class="accordion-item">
               <h2 class="accordion-header">
-                <button
-                  class="accordion-button"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target="#panelsStayOpen-collapseOne"
-                  aria-expanded="true"
-                  aria-controls="panelsStayOpen-collapseOne"
-                >
+                <button class="accordion-button collapsed" 
+                  type="button" 
+                  data-bs-toggle="collapse" 
+                  data-bs-target="#panelsStayOpen-collapseOne" 
+                  aria-expanded="false" 
+                  aria-controls="panelsStayOpen-collapseOne">
                   Configurações
                 </button>
               </h2>
               <div
                 id="panelsStayOpen-collapseOne"
-                class="accordion-collapse collapse show"
+                class="accordion-collapse collapsed collapse"
               >
                 <div class="accordion-body">
                   <div class="mb-3">
@@ -112,7 +123,7 @@
                   
 
                   <div class="input-group input-group-sm">
-                    <span class="input-group-text" id="basic-addon3"
+                    <span class="input-group-text"
                       >
                       <input
                         type="checkbox"
@@ -130,7 +141,7 @@
                     />
                   </div>
                   <div class="input-group input-group-sm">
-                    <span class="input-group-text" id="basic-addon3"
+                    <span class="input-group-text"
                       >
                       <input
                         type="checkbox"
@@ -148,7 +159,7 @@
                     />
                   </div>
                   <div class="input-group input-group-sm">
-                    <span class="input-group-text" id="basic-addon3"
+                    <span class="input-group-text"
                       >
                       <input
                         type="checkbox"
@@ -169,7 +180,7 @@
                   <div class="mb-3">
                     <label for="basic-url" class="form-label">Cores:</label>
                     <div class="input-group input-group-sm">
-                      <span class="input-group-text" id="basic-addon3"
+                      <span class="input-group-text"
                         >Textos e Linhas</span
                       >
                       <input
@@ -180,7 +191,7 @@
                       />
                     </div>
                     <div class="input-group input-group-sm">
-                      <span class="input-group-text" id="basic-addon3"
+                      <span class="input-group-text"
                         >Pontuação maior</span
                       >
                       <input
@@ -191,7 +202,7 @@
                       />
                     </div>
                     <div class="input-group input-group-sm">
-                      <span class="input-group-text" id="basic-addon3"
+                      <span class="input-group-text"
                         >Pontuação média</span
                       >
                       <input
@@ -202,7 +213,7 @@
                       />
                     </div>
                     <div class="input-group input-group-sm">
-                      <span class="input-group-text" id="basic-addon3"
+                      <span class="input-group-text"
                         >Pontuação menor</span
                       >
                       <input
@@ -378,7 +389,7 @@
 
           // Accordion title
           titleButton.innerHTML = group.title;
-          titleButton.className = "accordion-button collapsed";
+          titleButton.className = "accordion-button";
           titleButton.setAttribute("type", "button");
           titleButton.setAttribute("data-bs-toggle", "collapse");
           titleButton.setAttribute("data-bs-target", "#groupsAccord");
@@ -387,7 +398,7 @@
 
           // Body
           collapseDiv.id = "groupsAccord";
-          collapseDiv.className = "accordion-collapse collapse";
+          collapseDiv.className = "accordion-collapse collapsed collapse show";
           collapseDiv.append(bodyDiv);
           bodyDiv.className = "accordion-body";
 
@@ -397,15 +408,15 @@
             const itemInput = document.createElement("input");
 
             // Item
-            itemDiv.className = "input-group input-group-sm";
+            itemDiv.className = "input-group input-group-sm row";
 
             // Span
-            inputGroupSpan.className = "input-group-text";
+            inputGroupSpan.className = "input-group-text col-sm-10";
             inputGroupSpan.name = "t" + itemId;
             inputGroupSpan.setAttribute("type", "text");
             inputGroupSpan.setAttribute("value", item.title);
 
-            itemInput.className = "form-control";
+            itemInput.className = "form-control col-sm-2";
             itemInput.name = "" + itemId++;
             itemInput.setAttribute("type", "number");
             itemInput.setAttribute("min", "1");
